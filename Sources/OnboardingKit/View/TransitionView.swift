@@ -102,7 +102,6 @@ class TransitionView: UIView {
             index += 1
         } else {
             // we are on the last index
-            barViews.forEach { $0.reset() }
             nextImage = slides[0].image
             nextTitle = slides[0].title
             nextBarView = barViews[0]
