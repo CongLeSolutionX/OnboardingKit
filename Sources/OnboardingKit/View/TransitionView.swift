@@ -11,7 +11,9 @@ class TransitionView: UIView {
     
     private let slides: [Slide]
     private let viewTintColor: UIColor
-   
+    private var timer: DispatchSourceTimer?
+    
+    
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -63,6 +65,25 @@ class TransitionView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func start() {
+        buildTimerIfNeeded()
+        timer?.resume() // since the timer stops by default
+    }
+    
+    func stop() {
+        timer?.cancel()
+        timer = nil
+    }
+    
+    private func buildTimerIfNeeded() {
+        guard timer == nil else { return } // If timer is not nil, the nwe dont need to build the timer and just return
+        timer = DispatchSource.makeTimerSource()
+        timer?.schedule(deadline: .now(), repeating: .seconds(3), leeway: .seconds(1))
+        timer?.setEventHandler(handler: {
+            print("Show next")
+        })
     }
     
     private func layout() {
