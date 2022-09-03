@@ -19,7 +19,6 @@ class TransitionView: UIView {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.backgroundColor = .yellow
         return view
     }()
     
@@ -91,14 +90,17 @@ class TransitionView: UIView {
     
     private func showNext() {
         let nextImage: UIImage
+        let nextTitle: String
         // if index is last, then show first
         // else show next index
         if slides.indices.contains(index + 1) {
             nextImage = slides[index + 1].image
+            nextTitle = slides[index + 1].title
             index += 1
         } else {
             // we are on the last index
             nextImage = slides[0].image
+            nextTitle = slides[0].title
             index = 0
         }
         UIView.transition(
@@ -109,10 +111,11 @@ class TransitionView: UIView {
                 self.imageView.image = nextImage
             }, completion: nil
         )
+        
+        titleView.setTitle(text: nextTitle)
     }
         
     private func layout() {
-        backgroundColor = .blue
         addSubview(stackView)
         addSubview(barStackView)
         
