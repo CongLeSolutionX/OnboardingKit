@@ -91,16 +91,20 @@ class TransitionView: UIView {
     private func showNext() {
         let nextImage: UIImage
         let nextTitle: String
+        let nextBarView: AnimatedBarView
+        
         // if index is last, then show first
         // else show next index
         if slides.indices.contains(index + 1) {
             nextImage = slides[index + 1].image
             nextTitle = slides[index + 1].title
+            nextBarView = barViews[index + 1]
             index += 1
         } else {
             // we are on the last index
             nextImage = slides[0].image
             nextTitle = slides[0].title
+            nextBarView = barViews[0]
             index = 0
         }
         UIView.transition(
@@ -113,6 +117,7 @@ class TransitionView: UIView {
         )
         
         titleView.setTitle(text: nextTitle)
+        nextBarView.startAnimating()
     }
         
     private func layout() {
