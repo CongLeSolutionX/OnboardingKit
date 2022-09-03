@@ -8,6 +8,10 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
+    
+    var nextButtonDidTap: ((Int) -> Void)?
+    var getStartedButtonDidTap: (() -> Void)?
+    
     private let slides: [Slide]
     private let tintColor: UIColor
     
@@ -18,12 +22,13 @@ class OnboardingViewController: UIViewController {
     
     private lazy var buttonContainerView: ButtonContainerView = {
         let view = ButtonContainerView(tintColor: tintColor)
-        view.nextButtonDidTap = {
-            print("Next button tapped!")
+        view.nextButtonDidTap = { [weak self] in
+            guard let strongSelf = self else { return }// since we are return a strong aurgument inside the nextButtonDidTap closure
+            strongSelf.nextButtonDidTap?(strongSelf.transitionView.slideIndex)
+            strongSelf.transitionView.handleTap(direction: .right)
+            
         }
-        view.getStartedButtonDidTap = {
-            print("Get Started button tapped!")
-        }
+        view.getStartedButtonDidTap = getStartedButtonDidTap
         return view
     }()
     
