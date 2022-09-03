@@ -67,12 +67,12 @@ class TransitionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func start() {
+    func startTimer() {
         buildTimerIfNeeded()
         timer?.resume() // since the timer stops by default
     }
     
-    func stop() {
+    func stopTimer() {
         timer?.cancel()
         timer = nil
     }
@@ -120,7 +120,7 @@ class TransitionView: UIView {
         titleView.setTitle(text: nextTitle)
         nextBarView.startAnimating()
     }
-        
+    
     private func layout() {
         addSubview(stackView)
         addSubview(barStackView)
@@ -139,5 +139,22 @@ class TransitionView: UIView {
         imageView.snp.makeConstraints { make in
             make.height.equalTo(stackView.snp.height).multipliedBy(0.8)
         }
+    }
+    
+    func handleTap(direction: Direction) {
+        switch direction {
+        case .left:
+            barViews[index].reset()// reset the current bar view
+            // Reset the previous bar view
+            if barViews.indices.contains(index - 1) {
+                barViews[index - 1].reset()
+            }
+            index -= 2
+        case .right:
+            barViews[index].complete()// complete the current bar view
+        }
+        timer?.cancel()
+        timer = nil
+        startTimer()
     }
 }
