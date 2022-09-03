@@ -12,6 +12,7 @@ class TransitionView: UIView {
     private let slides: [Slide]
     private let viewTintColor: UIColor
     private var timer: DispatchSourceTimer?
+    private var index: Int = -1
     
     
     private lazy var imageView: UIImageView = {
@@ -81,11 +82,35 @@ class TransitionView: UIView {
         guard timer == nil else { return } // If timer is not nil, the nwe dont need to build the timer and just return
         timer = DispatchSource.makeTimerSource()
         timer?.schedule(deadline: .now(), repeating: .seconds(3), leeway: .seconds(1))
-        timer?.setEventHandler(handler: {
-            print("Show next")
+        timer?.setEventHandler(handler: { [weak self] in
+            DispatchQueue.main.async {
+                self?.showNext()
+            }
         })
     }
     
+    private func showNext() {
+        let nextImage: UIImage
+        // if index is last, then show first
+        // else show next index
+        if slides.indices.contains(index + 1) {
+            nextImage = slides[index + 1].image
+            index += 1
+        } else {
+            // we are on the last index
+            nextImage = slides[0].image
+            index = 0
+        }
+        UIView.transition(
+            with: imageView,
+            duration: 0.5,
+            options: .transitionCrossDissolve,
+            animations: {
+                self.imageView.image = nextImage
+            }, completion: nil
+        )
+    }
+        
     private func layout() {
         backgroundColor = .blue
         addSubview(stackView)
