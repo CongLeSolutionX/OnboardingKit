@@ -25,7 +25,7 @@ class TransitionView: UIView {
     private lazy var barViews: [AnimatedBarView] = {
         var views: [AnimatedBarView] = []
         slides.forEach { _ in
-            views.append(AnimatedBarView())
+            views.append(AnimatedBarView(barColor: viewTintColor))
         }
         return views
     }()
