@@ -23,6 +23,11 @@ There are two ways to use OnboardingKit in your project:
 
 ### Swift Package Manager
 
+[Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+
+> Xcode 11+ is required to build Onboardingit and SnapKit using Swift Package Manager.
+
+
 To integrate OnboardingKit into your Xcode project using Swift Package Manager, add it to the dependencies value of your `Package.swift`:
 
 ```swift
@@ -113,3 +118,7 @@ class ViewController: UIViewController, OnboardingKitDelegate {
 ## Credits 
 
 - Cong Le
+
+## License
+
+OnboardingKit is released under the MIT license. See [LICENSE](LICENSE.md) for details.
