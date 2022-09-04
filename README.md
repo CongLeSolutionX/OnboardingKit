@@ -2,6 +2,9 @@
 
 OnboardingKit provides an onboarding flow that is simple and easy to implement.
 
+![Video demo](https://github.com/CongLeSolutionX/OnboardingKit/blob/45cf8e92721778fda74e51ed2760204332e009a8/Demo.gif)
+
+
 ## Contents
 
 - [Requirements](#requirements)
