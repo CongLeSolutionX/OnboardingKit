@@ -3,7 +3,7 @@
 Copyright (c) 2022 Cong Le
 
 Mail: longchike@gmail.com
-Web: CongLeSolutionX.tech
+Web: https://conglesolutionx.tech
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
