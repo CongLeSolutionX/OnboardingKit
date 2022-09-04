@@ -8,6 +8,7 @@ public protocol OnboardingKitDelegate: AnyObject {
 
 public class OnboardingKit {
     
+    private let themeFont: UIFont // Resource for more fonts: https://developer.apple.com/fonts/system-fonts
     private let slides: [Slide]
     private let tintColor: UIColor
     private var rootVC: UIViewController?
@@ -15,7 +16,7 @@ public class OnboardingKit {
     public weak var delegate: OnboardingKitDelegate?
     
     private lazy var onboardingViewController: OnboardingViewController = {
-        let controller = OnboardingViewController(slides: slides, tintColor: tintColor)
+        let controller = OnboardingViewController(slides: slides, tintColor: tintColor, themeFont: themeFont)
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .fullScreen
         controller.nextButtonDidTap = { [weak self] index in
@@ -28,9 +29,15 @@ public class OnboardingKit {
         return controller
     }()
     
-    public init(slides: [Slide], tintColor: UIColor) {
+    public init(
+        slides: [Slide],
+        tintColor: UIColor,
+        themeFont: UIFont = UIFont(name: "ArialRoundedMTBold", size: 28) ??
+        UIFont.systemFont(ofSize: 28, weight: .bold)
+    ) {
         self.slides = slides
         self.tintColor = tintColor
+        self.themeFont = themeFont
     }
     
     public func launchOnboarding(rootVC: UIViewController) {
