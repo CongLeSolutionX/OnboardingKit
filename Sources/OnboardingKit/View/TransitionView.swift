@@ -82,11 +82,11 @@ class TransitionView: UIView {
     }
     
     private func buildTimerIfNeeded() {
-        guard timer == nil else { return } // If timer is not nil, the nwe dont need to build the timer and just return
+        guard timer == nil else { return } // If timer is not nil, then we dont need to build the timer and just return
         timer = DispatchSource.makeTimerSource()
         timer?.schedule(deadline: .now(), repeating: .seconds(3), leeway: .seconds(1))
         timer?.setEventHandler(handler: { [weak self] in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { // no need [weak self] here b/c self is captured by the outter closure already
                 self?.showNext()
             }
         })

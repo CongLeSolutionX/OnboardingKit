@@ -18,10 +18,6 @@ class AnimatedBarView: UIView {
     
     @Published private var state: State = .clear
     private var subscribers = Set<AnyCancellable>()
-    private lazy var animator: UIViewPropertyAnimator = {
-        let animator = UIViewPropertyAnimator()
-        return animator
-    }()
     private let barColor: UIColor
     
     private lazy var backgroundBarView: UIView = {
@@ -36,6 +32,11 @@ class AnimatedBarView: UIView {
         view.backgroundColor = barColor
         view.alpha = 0.0
         return view
+    }()
+    
+    private lazy var animator: UIViewPropertyAnimator = {
+        let animator = UIViewPropertyAnimator()
+        return animator
     }()
     
     init(barColor: UIColor) {

@@ -23,7 +23,7 @@ class OnboardingViewController: UIViewController {
     private lazy var buttonContainerView: ButtonContainerView = {
         let view = ButtonContainerView(tintColor: tintColor)
         view.nextButtonDidTap = { [weak self] in
-            guard let strongSelf = self else { return }// since we are return a strong aurgument inside the nextButtonDidTap closure
+            guard let strongSelf = self else { return }// since we return a strong argument inside the nextButtonDidTap closure
             strongSelf.nextButtonDidTap?(strongSelf.transitionView.slideIndex)
             strongSelf.transitionView.handleTap(direction: .right)
             
@@ -87,5 +87,9 @@ class OnboardingViewController: UIViewController {
         } else {
             transitionView.handleTap(direction: .left)
         }
+    }
+    
+    func stopAnimation() {
+        transitionView.stopTimer()
     }
 }
